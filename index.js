@@ -38,7 +38,7 @@ app.post("/", (req, res) => {
 
   //CREATE A NEW VERIFICATION HERE
   twilioClient.verify
-    .services("VAfbe1d841799179503808b75b5e52f611")
+    .services("VAXXXXXXXX")
     .verifications.create({ to: email, channel: "email" })
     .then(verification => {
       console.log("Verification email sent");
@@ -66,7 +66,7 @@ app.post("/verify", (req, res) => {
   //CHECK YOUR VERIFICATION CODE HERE
 
   twilioClient.verify
-    .services("VAfbe1d841799179503808b75b5e52f611")
+    .services("VAXXXXXXX")
     .verificationChecks.create({ to: email, code: userCode })
     .then(verification_check => {
       if (verification_check.status === "approved") {
