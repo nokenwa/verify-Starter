@@ -36,19 +36,19 @@ app.post("/", (req, res) => {
     verified: "Not Verified"
   });
 
-  //CREATE A NEW VERIFICATION HERE
-  twilioClient.verify
-    .services("VAXXXXXXXX")
-    .verifications.create({ to: email, channel: "email" })
-    .then(verification => {
-      console.log("Verification email sent");
-      res.redirect(`/verify?email=${email}`);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  // //CREATE A NEW VERIFICATION HERE
+  // twilioClient.verify
+  //   .services("VAXXXXXXXX")
+  //   .verifications.create({ to: email, channel: "email" })
+  //   .then(verification => {
+  //     console.log("Verification email sent");
+  //     res.redirect(`/verify?email=${email}`);
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
 
-  // res.redirect("/users");
+  res.redirect("/users"); //Coment This line after Uncommenting the above lines
 });
 
 //Requesting Verification Code
