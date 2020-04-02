@@ -8,6 +8,8 @@ const twilioClient = require("twilio")(
   process.env.TWILIO_AUTH_TOKEN
 );
 
+const verificationSID = process.env.TWILIO_VERIFY_SID;
+
 const app = express();
 
 //Templating Engine Setup
@@ -37,18 +39,16 @@ app.post("/", (req, res) => {
   });
 
   // //CREATE A NEW VERIFICATION HERE
-  // twilioClient.verify
-  //   .services("VAXXXXXXXX")
-  //   .verifications.create({ to: email, channel: "email" })
-  //   .then(verification => {
-  //     console.log("Verification email sent");
-  //     res.redirect(`/verify?email=${email}`);
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //   });
-
-  res.redirect("/users"); //Coment This line after Uncommenting the above lines
+  twilioClient.verify
+    .services(verificationSID)
+    .verifications.create({ to: email, channel: "email" })
+    .then(verification => {
+      console.log("Verification email sent");
+      res.redirect(`/verify?email=${email}`);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 });
 
 //Requesting Verification Code
@@ -66,7 +66,7 @@ app.post("/verify", (req, res) => {
   //CHECK YOUR VERIFICATION CODE HERE
 
   twilioClient.verify
-    .services("VAXXXXXXX")
+    .services(verificationSID)
     .verificationChecks.create({ to: email, code: userCode })
     .then(verification_check => {
       if (verification_check.status === "approved") {
